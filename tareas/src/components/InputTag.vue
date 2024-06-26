@@ -7,9 +7,20 @@
       type="error"
       :value="true"
    
-      class="mt-4 "
+      class="mt-4 d-flex " 
     >
-      <p v-for="(error, index) in errors" :key="index" class="mb-1">{{ error }}</p>
+      <p v-for="(error, index) in errors" :key="index" class="mb-1 text-left d-flex">{{ error }}</p>
+    </v-alert>
+
+      <v-alert
+      v-if="success.length"
+      type="success"
+      :value="true"
+    
+      class="mt-4 text-center"
+    >
+      <p v-for="(success, index) in success" :key="index" class="mb-1 text-left">{{ success }}</p>
+
     </v-alert>
       <v-form ref="form" @submit.prevent="addTareaForm">
         <label>{{ label }}</label>
@@ -97,6 +108,8 @@ export default {
             this.tareas.push({ name: this.input_val, cat: this.cat_selected });
             this.input_val = "";
             this.cat_selected = ""; // Limpia el campo de selección
+            this.errors.length == 0 ? this.success.push("Tarea agregada con éxito") : this.success=[];
+
           } else {
             this.errors.push("La tarea ya existe en la lista con la misma categoría asignada, selecciona otra categoría o cambie el nombre.");
           }
